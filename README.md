@@ -26,7 +26,7 @@
 ```bash
 node -v
 npm -v
-
+```
 # Запуск дашборда:
 
 URL сервера SonarQube задаётся в файле src/sonarService.js: const SONAR_URL = 'http://localhost:9000';
