@@ -29,11 +29,11 @@ npm -v
 ```
 # Запуск дашборда:
 
-URL сервера SonarQube задаётся в файле src/sonarService.js: const SONAR_URL = 'http://localhost:9000';
+URL сервера SonarQube задаётся в файле src/sonarService.js: const SONAR_URL = 'http://localhost:9000'.
 
-В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и установите зависимости командой npm install
-В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и выполните команду npm run dev
-Открой в браузере адрес, который выведет Vite (обычно http://localhost:5173/).
+В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и установите зависимости командой npm install. 
+В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и выполните команду npm run dev. 
+Открой в браузере адрес, который выведет Vite (обычно http://localhost:5173/). 
 
 Project Key — ключ проекта в SonarQube (виден в Projects → твой проект).
 Token — токен из My Account → Security.
