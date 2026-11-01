@@ -31,9 +31,9 @@ npm -v
 
 URL сервера SonarQube задаётся в файле src/sonarService.js: const SONAR_URL = 'http://localhost:9000'.
 
-В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и установите зависимости командой npm install. 
-В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и выполните команду npm run dev. 
-Открой в браузере адрес, который выведет Vite (обычно http://localhost:5173/). 
+В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и установите зависимости командой: npm install.<br>
+В командной строке убедитесь, что находитесь в папке проекта (sonar-dashboard) и выполните команду: npm run dev.<br>
+Открой в браузере адрес, который выведет Vite (обычно http://localhost:5173/).<br>
 
 Project Key — ключ проекта в SonarQube (виден в Projects → твой проект).
 Token — токен из My Account → Security.
@@ -51,13 +51,13 @@ CORS-ошибка в браузере. Если SonarQube и приложени�
 Пустые метрики. Убедись, что проект уже проанализирован в SonarQube (то есть у него есть хотя бы один успешный scan).
 
 # Структура пректа:
-sonar-dashboard/
-├── src/
-│   ├── App.jsx           # главный компонент: форма + вывод метрик
-│   ├── App.css           # стили дашборда
-│   ├── sonarService.js   # запрос к SonarQube Web API
-│   └── main.jsx          # точка входа React
-├── index.html
-├── package.json
-├── vite.config.js
+sonar-dashboard/<br>
+├── src/<br>
+│   ├── App.jsx           # главный компонент: форма + вывод метрик<br>
+│   ├── App.css           # стили дашборда<br>
+│   ├── sonarService.js   # запрос к SonarQube Web API<br>
+│   └── main.jsx          # точка входа React<br>
+├── index.html<br>
+├── package.json<br>
+├── vite.config.js<br>
 └── ...
