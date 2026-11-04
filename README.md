@@ -10,3 +10,9 @@
 2. Выполнить команду
    docker run --rm -e SONAR_HOST_URL="http://host.docker.internal:9000" -e SONAR_TOKEN="ТОКЕН" -v "${PWD}:/usr/src" sonarsource/sonar-scanner-cli:5.0 --% -Dsonar.projectKey=КЛЮЧ_ПРОЕКТА -Dsonar.sources=.
 3. Проверить результаты на странице http://localhost:9000/
+
+Инструкция по остановке
+1. Закрыть терминал со сканированием проекта
+2. Выполнить команду в терминале с запущенным docker-compose.yml
+   docker compose down
+3. Закрыть Docker
