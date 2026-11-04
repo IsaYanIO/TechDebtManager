@@ -1,6 +1,6 @@
 Инструкция по запуску
 1. Запустить Docker
-2. Запустить терминал в папке с sonarqube-docker
+2. Запустить терминал в папке с docker-compose.yml
 3. Выполнить команду
    docker compose up -d
 4. Открыть страницу http://localhost:9000/
