@@ -1,0 +1,9 @@
+.git
+.freebuff
+.env
+data
+workspace
+dashboard
+__pycache__
+.venv
+*.log

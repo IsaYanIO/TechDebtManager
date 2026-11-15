@@ -1,0 +1,23 @@
+# Секреты и ключи API
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Служебные файлы Freebuff
+.freebuff/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Скачанный код репозиториев
+workspace/
+
+# Node
+node_modules/
+dist/
+*.log
