@@ -83,8 +83,38 @@ services:
     depends_on:
       - api
 
+  cloudpub:
+    image: cloudpub/cloudpub:latest
+    profiles: ["cloudpub"]
+    restart: unless-stopped
+    environment:
+      TOKEN: ${CLOUDPUB_TOKEN:-}
+    command: ["publish", "http", "dashboard:80"]
+    volumes:
+      - cloudpub_config:/home/cloudpub
+    depends_on:
+      - dashboard
+
+  # Второй туннель: веб-интерфейс SonarQube. Только с профилем cloudpub.
+  # Отдельный агент и отдельный том, чтобы адрес дашборда не менялся.
+  cloudpub_sonar:
+    image: cloudpub/cloudpub:latest
+    profiles: ["cloudpub"]
+    restart: unless-stopped
+    container_name: techdebt-cloudpub-sonar
+    environment:
+      TOKEN: ${CLOUDPUB_TOKEN:-}
+    command: ["publish", "http", "sonarqube:9000", "--name", "techdebt-sonar", "--auth", "basic"]
+    volumes:
+      - cloudpub_sonar_config:/home/cloudpub
+    depends_on:
+      - sonarqube
+
 volumes:
   sonarqube_data:
   sonarqube_extensions:
   sonarqube_logs:
   postgresql_data:
+  cloudpub_config:
+  cloudpub_sonar_config:
+

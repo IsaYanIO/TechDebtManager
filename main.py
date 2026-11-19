@@ -517,6 +517,26 @@ def start_sonarqube(compose_file=SONAR_COMPOSE_FILE):
         raise PipelineError("docker compose up завершился с ошибкой — смотрите вывод выше.")
 
 
+SKIP_SCAN_DIRS = {".git", ".idea", "node_modules", "dist", "build", "target", ".gradle", ".venv", "venv"}
+
+
+def has_java_sources(source):
+    """Есть ли в проекте .java файлы вне служебных каталогов."""
+    source = Path(source)
+    for path in source.rglob("*.java"):
+        if SKIP_SCAN_DIRS.isdisjoint(path.relative_to(source).parts[:-1]):
+            return True
+    return False
+
+
+def scanner_error_details(log_text):
+    """Короткая причина падения sonar-scanner для интерфейса."""
+    lines = [line.strip() for line in (log_text or "").splitlines() if line.strip()]
+    errors = [line for line in lines if "ERROR" in line and "Re-run SonarScanner" not in line]
+    tail = errors[-2:] or lines[-3:]
+    return " | ".join(tail)[:600]
+
+
 def run_sonar_scanner(source, project_key, sonar_url, sonar_token):
     """Запускает локальный sonar-scanner, а при его отсутствии — контейнер."""
     source = Path(source).resolve()
@@ -531,36 +551,68 @@ def run_sonar_scanner(source, project_key, sonar_url, sonar_token):
         "-Dsonar.exclusions=**/.git/**,**/node_modules/**,**/dist/**,**/.venv/**",
     ]
 
-    scanner = shutil.which("sonar-scanner")
-    if scanner:
-        log("🧪 Запуск sonar-scanner...")
-        result = subprocess.run([scanner, *parameters], cwd=str(source), check=False)
-    else:
-        docker = shutil.which("docker")
-        if not docker:
-            raise PipelineError(
-                "Не найден sonar-scanner. Установите его локально или запустите "
-                "анализ в контейнере: docker compose run --rm pipeline sonar"
+    if has_java_sources(source):
+        # Без собранных классов Java-анализатор падает с AnalysisException
+        # ("please provide compiled classes with sonar.java.binaries"). Собирать
+        # Android/Gradle/Maven проект внутри контейнера нельзя, поэтому отключаем
+        # проверку classpath: правила, которым нужен байткод, будут недоступны.
+        parameters.append("-Dsonar.java.binaries=.")
+        log("ℹ️ Найдены .java файлы без собранных классов — анализ Java без classpath")
+
+    with tempfile.TemporaryFile(mode="w+", encoding="utf-8", errors="replace") as output:
+        scanner = shutil.which("sonar-scanner")
+        if scanner:
+            log("🧪 Запуск sonar-scanner...")
+            result = subprocess.run(
+                [scanner, *parameters],
+                cwd=str(source),
+                check=False,
+                stdout=output,
+                stderr=subprocess.STDOUT,
+                text=True,
+            )
+        else:
+            docker = shutil.which("docker")
+            if not docker:
+                raise PipelineError(
+                    "Не найден sonar-scanner. Установите его локально или запустите "
+                    "анализ в контейнере: docker compose run --rm pipeline sonar"
+                )
+
+            mount_path = str(source).replace("\\", "/")
+            command = [
+                docker,
+                "run",
+                "--rm",
+                "-e",
+                f"SONAR_HOST_URL={sonar_url}",
+                "-e",
+                f"SONAR_TOKEN={sonar_token}",
+                "-v",
+                f"{mount_path}:/usr/src",
+                "sonarsource/sonar-scanner-cli",
+                *parameters,
+            ]
+            log("🧪 Запуск sonar-scanner через Docker...")
+            result = subprocess.run(
+                command,
+                check=False,
+                stdout=output,
+                stderr=subprocess.STDOUT,
+                text=True,
             )
 
-        mount_path = str(source).replace("\\", "/")
-        command = [
-            docker,
-            "run",
-            "--rm",
-            "-e",
-            f"SONAR_HOST_URL={sonar_url}",
-            "-e",
-            f"SONAR_TOKEN={sonar_token}",
-            "-v",
-            f"{mount_path}:/usr/src",
-            "sonarsource/sonar-scanner-cli",
-            *parameters,
-        ]
-        log("🧪 Запуск sonar-scanner через Docker...")
-        result = subprocess.run(command, check=False)
+        output.seek(0)
+        log_text = output.read()
+
+    if log_text:
+        sys.stdout.write(log_text)
+        sys.stdout.flush()
 
     if result.returncode != 0:
+        details = scanner_error_details(log_text)
+        if details:
+            raise PipelineError(f"sonar-scanner завершился с ошибкой: {details}")
         raise PipelineError("sonar-scanner завершился с ошибкой — смотрите вывод выше.")
 
     task_id = read_ce_task_id(source)

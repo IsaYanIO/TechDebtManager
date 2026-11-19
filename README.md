@@ -24,7 +24,7 @@ dashboard (React + Vite)
 
 ```
 TechDev/
-├── docker-compose.yml            # db, sonarqube, pipeline, api, dashboard
+├── docker-compose.yml            # db, sonarqube, pipeline, api, dashboard, два туннеля CloudPub
 ├── docker/pipeline.Dockerfile    # Python + git + JDK + sonar-scanner
 ├── main.py                       # все этапы пайплайна в одном файле
 ├── api.py                        # FastAPI для запуска проверки из дашборда
@@ -33,6 +33,7 @@ TechDev/
 │   ├── nginx.conf
 │   └── src/                      # React-приложение и окно проверки
 ├── requirements.txt
+├── TOKENS.md                     # где получить SONAR_TOKEN, GigaChat, CloudPub, GIT_TOKEN
 ├── .env.example
 ├── data/                         # результаты, монтируется в контейнеры
 └── workspace/                    # скачанный код репозиториев
@@ -58,6 +59,9 @@ cp .env.example .env      # Windows: copy .env.example .env
 
 `SONAR_TOKEN` добавьте после первого запуска SonarQube — шаг 3.
 
+Подробная инструкция по всем ключам — где зарегистрироваться, где нажать и как
+проверить каждый токен — в [TOKENS.md](TOKENS.md).
+
 ### 2. Запуск сервисов
 
 ```bash
@@ -71,6 +75,10 @@ docker compose up -d --build db sonarqube api dashboard
 | dashboard | http://localhost:8081 | интерфейс и окно проверки репозитория |
 | SonarQube | http://localhost:9000 | анализ кода, при первом входе admin / admin |
 | api | http://127.0.0.1:8000 | запуск проверок, доступен только с этой машины |
+
+Снаружи (после запуска с профилем `cloudpub`, см. раздел ниже) доступны два адреса:
+дашборд и веб-интерфейс SonarQube за Basic Auth. Локальный http://localhost:9000
+работает всегда, даже без CloudPub.
 
 Состояние: `docker compose ps`. Если порт 9000 занят старым контейнером SonarQube,
 остановите его: `docker stop <имя-контейнера>`.
@@ -136,12 +144,78 @@ docker compose ps                            # состояние сервисо
 docker compose logs -f sonarqube             # логи SonarQube
 docker compose logs -f api                   # логи проверок
 docker compose up -d --build api dashboard   # обновить интерфейс и API
-docker compose down                          # остановить, данные сохраняются
-docker compose down -v                       # удалить данные SonarQube и PostgreSQL
+docker compose --profile cloudpub down       # остановить всё, включая туннели; данные сохраняются
+docker compose --profile cloudpub down -v    # дополнительно удалить данные SonarQube, PostgreSQL и адреса туннелей
 ```
 
 На Linux перед первым запуском может понадобиться:
 `sudo sysctl -w vm.max_map_count=262144`.
+
+## Публикация через CloudPub
+
+CloudPub даёт публичные HTTPS-адреса без проброса портов и настройки роутера: два независимых
+туннеля — для дашборда (`dashboard:80`) и для веб-интерфейса SonarQube (`sonarqube:9000`).
+ПК с Docker Desktop должен быть включён. Токен берётся в личном кабинете
+[cloudpub.ru](https://cloudpub.ru).
+
+1. Добавьте токен в `.env`:
+
+   ```
+   CLOUDPUB_TOKEN=ваш_токен
+   ```
+
+2. Запустите стек с профилем `cloudpub`:
+
+   ```bash
+   docker compose --profile cloudpub up -d --build
+   ```
+
+3. Посмотрите публичный адрес в логах:
+
+   ```bash
+   docker compose logs -f cloudpub
+   ```
+
+   В логе будет строка вида `Сервис опубликован: dashboard:80 -> <имя>.cloudpub.ru`.
+
+4. Откройте этот HTTPS-адрес. Дашборд проксирует `/api` на сервис `api`, поэтому
+   проверка репозиториев работает и снаружи.
+
+### Второй туннель: SonarQube
+
+Сервис `cloudpub_sonar` публикует веб-интерфейс SonarQube и защищён Basic Auth CloudPub.
+Он запускается тем же профилем `cloudpub` и поднимается вместе со стеком.
+
+```bash
+docker compose --profile cloudpub up -d --build db sonarqube api dashboard cloudpub cloudpub_sonar
+docker compose logs -f cloudpub_sonar     # здесь появится адрес SonarQube
+```
+
+В логе будет строка вида
+`Сервис опубликован: http://sonarqube:9000 -> https://<имя>.cloudpub.ru:443` — это адрес
+веб-интерфейса SonarQube. При открытии браузер спросит логин и пароль Basic Auth
+(учётная запись CloudPub), после этого откроется обычная страница входа SonarQube
+(`admin` и ваш пароль). Внутри: **Projects** → проект с ключом
+`<PROJECT_KEY>-<owner>-<repo>` → Issues, Measures, Quality Gate.
+
+Туннель SonarQube использует отдельный том `cloudpub_sonar_config`, поэтому адрес дашборда
+не меняется. Адреса обоих туннелей переживают перезапуск контейнеров.
+
+> Важно: SonarQube показывает исходный код всех проанализированных проектов и имеет
+> административный доступ. Не публикуйте его без `--auth basic`, не оставляйте пароль
+> `admin` и не выключайте туннель через `stop`, если не хотите, чтобы интерфейс оставался
+> доступен снаружи. Сканирование при этом всегда идёт по внутреннему адресу
+> `http://sonarqube:9000` и от публикации не зависит.
+
+> Публичный адрес дашборда доступен всем, у него нет авторизации: любой, кто знает ссылку,
+> может запускать проверки и расходовать кредиты GigaChat. Для постоянного хостинга
+> закройте дашборд Basic Auth в nginx или ограничьте доступ средствами CloudPub.
+
+Остановить только туннели:
+
+```bash
+docker compose --profile cloudpub stop cloudpub cloudpub_sonar
+```
 
 ## Запуск без Docker
 

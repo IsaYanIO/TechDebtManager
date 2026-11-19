@@ -1,7 +1,7 @@
 {
-    "project_key": "TechDebtManager-IsaYanIO-Web-PWA-ES",
+    "project_key": "TechDebtManager-IsaYanIO-FakeStoreReal",
     "sonar_url": "http://sonarqube:9000",
-    "generated_at": "2026-11-15T13:02:51",
+    "generated_at": "2026-11-19T15:34:11",
     "metrics": [
         {
             "key": "new_technical_debt",
@@ -37,7 +37,7 @@
             "domain": "Reliability",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "1"
         },
         {
             "key": "classes",
@@ -55,7 +55,7 @@
             "domain": "Maintainability",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "3"
         },
         {
             "key": "cognitive_complexity",
@@ -64,7 +64,7 @@
             "domain": "Complexity",
             "type": "INT",
             "direction": -1,
-            "value": "2"
+            "value": "6"
         },
         {
             "key": "comment_lines",
@@ -73,7 +73,7 @@
             "domain": "Size",
             "type": "INT",
             "direction": 1,
-            "value": "0"
+            "value": "2"
         },
         {
             "key": "comment_lines_data",
@@ -91,7 +91,7 @@
             "domain": "Size",
             "type": "PERCENT",
             "direction": 1,
-            "value": "0.0"
+            "value": "0.3"
         },
         {
             "key": "class_complexity",
@@ -109,7 +109,7 @@
             "domain": "Complexity",
             "type": "FLOAT",
             "direction": -1,
-            "value": "5.0"
+            "value": "3.0"
         },
         {
             "key": "function_complexity",
@@ -217,7 +217,7 @@
             "domain": "Complexity",
             "type": "INT",
             "direction": -1,
-            "value": "15"
+            "value": "24"
         },
         {
             "key": "last_commit_date",
@@ -226,7 +226,7 @@
             "domain": "SCM",
             "type": "MILLISEC",
             "direction": 0,
-            "value": "1794746417974"
+            "value": "1795102250298"
         },
         {
             "key": "development_cost",
@@ -235,7 +235,7 @@
             "domain": "Maintainability",
             "type": "STRING",
             "direction": -1,
-            "value": "4050"
+            "value": "18870"
         },
         {
             "key": "new_development_cost",
@@ -370,7 +370,7 @@
             "domain": "Size",
             "type": "INT",
             "direction": -1,
-            "value": "4"
+            "value": "16"
         },
         {
             "key": "function_complexity_distribution",
@@ -388,7 +388,7 @@
             "domain": "Size",
             "type": "INT",
             "direction": -1,
-            "value": "12"
+            "value": "14"
         },
         {
             "key": "generated_lines",
@@ -424,7 +424,7 @@
             "domain": "Issues",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "4"
         },
         {
             "key": "line_coverage",
@@ -451,7 +451,7 @@
             "domain": "Size",
             "type": "INT",
             "direction": -1,
-            "value": "146"
+            "value": "1078"
         },
         {
             "key": "ncloc",
@@ -460,7 +460,7 @@
             "domain": "Size",
             "type": "INT",
             "direction": -1,
-            "value": "135"
+            "value": "629"
         },
         {
             "key": "ncloc_language_distribution",
@@ -469,7 +469,7 @@
             "domain": "Size",
             "type": "DATA",
             "direction": -1,
-            "value": "css=39;js=56;web=40"
+            "value": "css=235;js=139;web=255"
         },
         {
             "key": "lines_to_cover",
@@ -478,7 +478,7 @@
             "domain": "Coverage",
             "type": "INT",
             "direction": -1,
-            "value": "26"
+            "value": "121"
         },
         {
             "key": "new_lines_to_cover",
@@ -514,7 +514,7 @@
             "domain": "Issues",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "3"
         },
         {
             "key": "minor_violations",
@@ -523,7 +523,7 @@
             "domain": "Issues",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "1"
         },
         {
             "key": "ncloc_data",
@@ -658,7 +658,7 @@
             "domain": "Issues",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "4"
         },
         {
             "key": "quality_profiles",
@@ -667,7 +667,7 @@
             "domain": "General",
             "type": "DATA",
             "direction": 0,
-            "value": "[{\"key\":\"AaHe7oYlypG0oia_JsKu\",\"language\":\"css\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"},{\"key\":\"AaHe7obgypG0oia_JsZm\",\"language\":\"js\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"},{\"key\":\"AaHe7ohEypG0oia_JtMY\",\"language\":\"web\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"}]"
+            "value": "[{\"key\":\"AaHe7oevypG0oia_Jswh\",\"language\":\"cs\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"},{\"key\":\"AaHe7oYlypG0oia_JsKu\",\"language\":\"css\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"},{\"key\":\"AaHe7obgypG0oia_JsZm\",\"language\":\"js\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"},{\"key\":\"AaHe7ohEypG0oia_JtMY\",\"language\":\"web\",\"name\":\"Sonar way\",\"rulesUpdatedAt\":\"2026-11-15T11:18:56+0000\"}]"
         },
         {
             "key": "projects",
@@ -712,7 +712,7 @@
             "domain": "General",
             "type": "DATA",
             "direction": 0,
-            "value": "{\"level\":\"OK\",\"conditions\":[{\"metric\":\"new_reliability_rating\",\"op\":\"GT\",\"period\":1,\"error\":\"1\",\"actual\":\"1\",\"level\":\"OK\"},{\"metric\":\"new_security_rating\",\"op\":\"GT\",\"period\":1,\"error\":\"1\",\"actual\":\"1\",\"level\":\"OK\"},{\"metric\":\"new_maintainability_rating\",\"op\":\"GT\",\"period\":1,\"error\":\"1\",\"actual\":\"1\",\"level\":\"OK\"}],\"ignoredConditions\":false}"
+            "value": "{\"level\":\"OK\",\"conditions\":[],\"ignoredConditions\":false}"
         },
         {
             "key": "alert_status",
@@ -730,7 +730,7 @@
             "domain": "Reliability",
             "type": "RATING",
             "direction": -1,
-            "value": "1.0"
+            "value": "2.0"
         },
         {
             "key": "new_reliability_rating",
@@ -748,7 +748,7 @@
             "domain": "Reliability",
             "type": "WORK_DUR",
             "direction": -1,
-            "value": "0"
+            "value": "5"
         },
         {
             "key": "new_reliability_remediation_effort",
@@ -775,7 +775,7 @@
             "domain": "SecurityReview",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "1"
         },
         {
             "key": "security_hotspots_reviewed",
@@ -784,7 +784,7 @@
             "domain": "SecurityReview",
             "type": "PERCENT",
             "direction": 1,
-            "value": null
+            "value": "0.0"
         },
         {
             "key": "new_security_hotspots_reviewed",
@@ -838,7 +838,7 @@
             "domain": "SecurityReview",
             "type": "RATING",
             "direction": -1,
-            "value": "1.0"
+            "value": "5.0"
         },
         {
             "key": "new_security_review_rating",
@@ -874,7 +874,7 @@
             "domain": "SecurityReview",
             "type": "INT",
             "direction": -1,
-            "value": "0"
+            "value": "1"
         },
         {
             "key": "new_security_hotspots_to_review_status",
@@ -901,7 +901,7 @@
             "domain": "Size",
             "type": "INT",
             "direction": -1,
-            "value": "26"
+            "value": "121"
         },
         {
             "key": "sqale_index",
@@ -910,7 +910,7 @@
             "domain": "Maintainability",
             "type": "WORK_DUR",
             "direction": -1,
-            "value": "0"
+            "value": "3"
         },
         {
             "key": "sqale_debt_ratio",
@@ -955,7 +955,7 @@
             "domain": "Coverage",
             "type": "INT",
             "direction": -1,
-            "value": "26"
+            "value": "121"
         },
         {
             "key": "new_uncovered_lines",
@@ -1030,5 +1030,121 @@
             "value": "0"
         }
     ],
-    "issues": []
+    "issues": [
+        {
+            "key": "AaH0cT4VmGEgWo7S1KAT",
+            "rule": "Web:TableWithoutCaptionCheck",
+            "severity": "MINOR",
+            "component": "TechDebtManager-IsaYanIO-FakeStoreReal:FakeStoreReal/Views/Shared/_Layout.cshtml",
+            "project": "TechDebtManager-IsaYanIO-FakeStoreReal",
+            "line": 53,
+            "hash": "498cc1032646c6729d0a2ea408abb838",
+            "textRange": {
+                "startLine": 53,
+                "endLine": 53,
+                "startOffset": 20,
+                "endOffset": 71
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Add a description to this table.",
+            "effort": "5min",
+            "debt": "5min",
+            "author": "",
+            "tags": [
+                "accessibility",
+                "wcag2-a"
+            ],
+            "creationDate": "2026-11-19T15:30:50+0000",
+            "updateDate": "2026-11-19T15:30:50+0000",
+            "type": "BUG",
+            "scope": "MAIN",
+            "quickFixAvailable": false,
+            "messageFormattings": []
+        },
+        {
+            "key": "AaH0cT4smGEgWo7S1KAV",
+            "rule": "css:S4666",
+            "severity": "MAJOR",
+            "component": "TechDebtManager-IsaYanIO-FakeStoreReal:FakeStoreReal/wwwroot/css/site.css",
+            "project": "TechDebtManager-IsaYanIO-FakeStoreReal",
+            "line": 15,
+            "hash": "44093db34bdf8bfc2e7e7752ffb52b2b",
+            "textRange": {
+                "startLine": 15,
+                "endLine": 15,
+                "startOffset": 0,
+                "endOffset": 6
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Unexpected duplicate selector \"html\", first used at line 1",
+            "effort": "1min",
+            "debt": "1min",
+            "author": "",
+            "tags": [],
+            "creationDate": "2026-11-19T15:30:50+0000",
+            "updateDate": "2026-11-19T15:30:50+0000",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false,
+            "messageFormattings": []
+        },
+        {
+            "key": "AaH0cT4smGEgWo7S1KAW",
+            "rule": "css:S4666",
+            "severity": "MAJOR",
+            "component": "TechDebtManager-IsaYanIO-FakeStoreReal:FakeStoreReal/wwwroot/css/site.css",
+            "project": "TechDebtManager-IsaYanIO-FakeStoreReal",
+            "line": 24,
+            "hash": "519ed0da4eea5e7b6d6edcbaad1eca5c",
+            "textRange": {
+                "startLine": 24,
+                "endLine": 24,
+                "startOffset": 0,
+                "endOffset": 6
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Unexpected duplicate selector \"body\", first used at line 20",
+            "effort": "1min",
+            "debt": "1min",
+            "author": "",
+            "tags": [],
+            "creationDate": "2026-11-19T15:30:50+0000",
+            "updateDate": "2026-11-19T15:30:50+0000",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false,
+            "messageFormattings": []
+        },
+        {
+            "key": "AaH0cT4smGEgWo7S1KAX",
+            "rule": "css:S4666",
+            "severity": "MAJOR",
+            "component": "TechDebtManager-IsaYanIO-FakeStoreReal:FakeStoreReal/wwwroot/css/site.css",
+            "project": "TechDebtManager-IsaYanIO-FakeStoreReal",
+            "line": 216,
+            "hash": "ddf9ff6c4c5acc1aa531a06423fcb71a",
+            "textRange": {
+                "startLine": 216,
+                "endLine": 216,
+                "startOffset": 0,
+                "endOffset": 15
+            },
+            "flows": [],
+            "status": "OPEN",
+            "message": "Unexpected duplicate selector \".card-img-top\", first used at line 78",
+            "effort": "1min",
+            "debt": "1min",
+            "author": "",
+            "tags": [],
+            "creationDate": "2026-11-19T15:30:50+0000",
+            "updateDate": "2026-11-19T15:30:50+0000",
+            "type": "CODE_SMELL",
+            "scope": "MAIN",
+            "quickFixAvailable": false,
+            "messageFormattings": []
+        }
+    ]
 }
